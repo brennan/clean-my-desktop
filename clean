@@ -6,10 +6,8 @@
 # cd into the desktop directory
 cd /Users/$USER/Desktop
 
-# find all files, only in the current directory
-# send any errors to /dev/null
+# find all files, only in the current directory, sending any standard errors to /dev/null
 FILES=$(find * -type f -maxdepth 0 2>/dev/null)
-FILESMOVED=0;
 
 # if the $FILES string has a nonzero length
 if [ -n "$FILES" ]
