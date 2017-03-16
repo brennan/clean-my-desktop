@@ -1,0 +1,40 @@
+#!/bin/env sh
+
+# TODO:
+# Add option to run on a schedule
+
+# cd into the desktop directory
+cd /Users/$USER/Desktop
+
+# find all files, only in the current directory
+# send any errors to /dev/null
+FILES=$(find * -type f -maxdepth 0 2>/dev/null)
+FILESMOVED=0;
+
+# if the $FILES string has a nonzero length
+if [ -n "$FILES" ]
+then
+  # delete all png files
+  find * -type f -maxdepth 0 | grep png | while read f
+  do
+    mv "$f" ~/.Trash/
+    if [ "$?" -eq 0 ]
+    then
+      echo "Moved $f to Trash."
+    fi
+  done
+
+  # move all other files to my documents, sending any standard error to /dev/null
+  find * -type f -maxdepth 0 2>/dev/null | while read f
+  do
+    mv "$f" /Users/$USER/Documents/
+    if [ "$?" -eq 0 ]
+    then
+      echo "Moved $f to My Documents."
+    fi
+  done
+
+  echo "All done!"
+else
+  echo "Your desktop is clean!"
+fi
